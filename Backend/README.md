@@ -25,7 +25,7 @@ JOIN hobbies ON map_user_hobby.id_hobby = hobbies.id
 WHERE hobbies.name = 'Skipping' 
 GROUP BY users.gender;
 ```
-Hasil :
+#### Hasil :
 ![alt text](images/no1.png)
 
 ### Query 2
@@ -35,7 +35,7 @@ FROM users JOIN map_user_hobby ON users.id = map_user_hobby.id_user
 WHERE map_user_hobby.status = 'active'
 GROUP BY users.name;
 ```
-Hasil :
+#### Hasil :
 ![alt text](images/no2.png)
 
 ### Query 3
@@ -46,8 +46,8 @@ JOIN hobbies ON map_user_hobby.id_hobby = hobbies.id
 GROUP BY users.name
 HAVING COUNT(map_user_hobby.id) > 1;
 ```
-Hasil :
+#### Hasil :
 ![alt text](images/no3.png)
 
 ## Author
-Ilham Prasetyo Wibowo
+[Ilham Prasetyo Wibowo](mailto:ilhamprasetyowb@gmail.com?)
