@@ -1,0 +1,26 @@
+-- test nomor 1
+
+13
+
+-- test nomor 2
+
+Berikut adalah kisah sang gajah. Sang gajah memiliki teman serigala bernama DoeSang. Gajah sering dibela oleh serigala ketika harimau mendekati gajah.
+
+-- test nomor 3
+
+5andiwara
+sandiwar4
+Sandiwar4
+
+-- test nomor 4
+
+[5, 2, 8, 4, 3, 10]
+[2, 3, 4, 6]
+[8, 6, 7, 12]
+
+-- test nomor 5
+
+5
+3
+7
+9

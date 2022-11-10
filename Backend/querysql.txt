@@ -1,0 +1,100 @@
+-- table creation
+CREATE TABLE users (
+	id int NOT NULL PRIMARY KEY AUTO_INCREMENT , 
+	name varchar(255),
+	gender VARCHAR(1) NOT NULL CHECK (gender IN ('M', 'F')),
+	status varchar(10) NOT NULL CHECK (status IN ('active', 'deleted'))
+	);
+
+
+CREATE TABLE hobbies (
+	id int NOT NULL PRIMARY KEY AUTO_INCREMENT , 
+	name VARCHAR(255),
+	level int
+	);
+
+CREATE TABLE map_user_hobby (
+	id int NOT NULL PRIMARY KEY AUTO_INCREMENT , 
+	id_user int NOT NULL, 
+	id_hobby int NOT NULL,
+	status VARCHAR(10),
+	FOREIGN KEY (id_user) REFERENCES users(id),
+	FOREIGN KEY (id_hobby) REFERENCES hobbies(id)
+	);
+
+-- populate
+INSERT INTO hobbies (name, level) 
+VALUES 
+	('Running', 8),
+	('Skipping', 5),
+	('Push Up', 10);
+
+
+INSERT INTO users (name, gender, status)
+VALUES 
+	("Frasch", "F", "active"),
+	("Garmuth", "M", "active"),
+	("Goliath", "M", "active"),
+	("Luna", "F", "active"),
+	("Zeus", "M", "active"),
+	("Aphrodite", "F", "active"),
+	("Ares", "M", "active"),
+	("Lina", "F", "active"),
+	("Lanaya", "F", "active"),
+	("Hades", "M", "active");
+
+INSERT INTO map_user_hobby (id_user, id_hobby, status)
+VALUES 
+    (1, 1, "active"),
+    (3, 1, "active"),
+    (8, 3, "deleted"),
+    (2, 2, "active"),
+    (4, 1, "deleted"),
+    (6, 2, "active"),
+    (5, 3, "active"),
+    (8, 1, "active"),
+    (7, 2, "active"),
+    (4, 2, "active"),
+    (9, 3, "deleted"),
+    (10, 2, "deleted"),
+    (3, 2, "active"),
+    (2, 3, "active"),
+    (10, 2, "active");	
+
+-- queries
+--menghitung jumlah user masing-masing gender
+-- hobi == skipping
+SELECT users.gender, COUNT(map_user_hobby.id_hobby) as total
+FROM users JOIN map_user_hobby ON users.id = map_user_hobby.id_user 
+JOIN hobbies ON map_user_hobby.id_hobby = hobbies.id 
+WHERE hobbies.name = 'Skipping' 
+GROUP BY users.gender;
+
+--hobi == Running
+SELECT users.gender, COUNT(map_user_hobby.id_hobby) as total
+FROM users JOIN map_user_hobby ON users.id = map_user_hobby.id_user 
+JOIN hobbies ON map_user_hobby.id_hobby = hobbies.id 
+WHERE hobbies.name = 'Running' 
+GROUP BY users.gender;
+
+-- hobi = Push Up
+SELECT users.gender, COUNT(map_user_hobby.id_hobby) as total
+FROM users JOIN map_user_hobby ON users.id = map_user_hobby.id_user 
+JOIN hobbies ON map_user_hobby.id_hobby = hobbies.id 
+WHERE hobbies.name = 'Push Up' 
+GROUP BY users.gender;
+
+-- menghitung jumlah hobby yang dimiliki user, 
+-- asumsi masih aktif = hobi dari user
+SELECT users.name as name_user, count(map_user_hobby.id) as total
+FROM users JOIN map_user_hobby ON users.id = map_user_hobby.id_user
+WHERE map_user_hobby.status = 'active'
+GROUP BY users.name;
+
+-- level rata-rata dari setiap user, ketika hobi > 1 (aktif atau tidak)
+SELECT users.name as name_user, AVG(hobbies.level) as level_avg
+FROM users JOIN map_user_hobby ON users.id = map_user_hobby.id_user
+JOIN hobbies ON map_user_hobby.id_hobby = hobbies.id 
+GROUP BY users.name
+HAVING COUNT(map_user_hobby.id) > 1;
+
