@@ -11,7 +11,7 @@ Untuk menjalankan program, diperlukan
 python codingtest.py
 ```
 ## Usage
-Ketika program berhasil dijalankan, program akan meminta input nomor soal.
+Ketika program berhasil dijalankan, program akan meminta input nomor soal. \
 ![alt text](images/initial.png) \
 Setelah itu masukkan nomor soal yang diinginkan.
 #### Nomor 1
